@@ -19,7 +19,7 @@ export default function Navbar() {
                 <div className="flex justify-between h-16">
                     <div className="flex">
                         <div className="flex-shrink-0 flex items-center">
-                            <span className="text-xl font-bold text-white">服務生收入追蹤</span>
+                            <span className="text-xl font-bold text-[#222]">服務生收入追蹤</span>
                         </div>
                         <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                             {navItems.map((item) => (
@@ -27,8 +27,8 @@ export default function Navbar() {
                                     key={item.path}
                                     href={item.path}
                                     className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${pathname === item.path
-                                        ? 'border-white text-white'
-                                        : 'border-transparent text-indigo-100 hover:border-indigo-200 hover:text-white'
+                                        ? 'border-white text-[#222]'
+                                        : 'border-transparent text-indigo-100 hover:border-indigo-200 hover:text-[#222]'
                                         }`}
                                 >
                                     {item.name}
@@ -37,7 +37,7 @@ export default function Navbar() {
                         </div>
                     </div>
                     <div className="flex items-center">
-                        <button className="bg-white text-indigo-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-50 transition-colors duration-200">
+                        <button className="bg-white text-[#007AFF] px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-50 transition-colors duration-200">
                             登入
                         </button>
                     </div>
