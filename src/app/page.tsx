@@ -1,103 +1,102 @@
-import Image from "next/image";
+"use client";
+import Navbar from "./components/Navbar";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-export default function Home() {
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+const fakeStats = {
+  todaySales: 3200,
+  todayTips: 420,
+  todayHours: 8,
+};
+
+const fakeTipData = {
+  labels: ["6/01", "6/02", "6/03", "6/04", "6/05", "6/06"],
+  datasets: [
+    {
+      label: "每日小費 ($)",
+      data: [300, 350, 400, 380, 420, 390],
+      borderColor: "#6366f1",
+      backgroundColor: "rgba(99,102,241,0.1)",
+      tension: 0.4,
+      fill: true,
+      pointRadius: 5,
+      pointBackgroundColor: "#6366f1",
+    },
+  ],
+};
+
+const fakeRecords = [
+  { date: "2024-06-06", start: "10:00", end: "18:00", sales: 3200, tips: 420 },
+  { date: "2024-06-05", start: "11:00", end: "19:00", sales: 2800, tips: 390 },
+  { date: "2024-06-04", start: "10:30", end: "18:30", sales: 3000, tips: 400 },
+];
+
+const todayTipDistribution = [
+  { name: "林小華", tip: 180 },
+  { name: "陳大明", tip: 90 },
+  { name: "王小美", tip: 90 },
+];
+
+export default function Dashboard() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      <Navbar />
+      <div className="max-w-2xl mx-auto py-10 px-4">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">信息看板</h1>
+        {/* 數字卡片 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+          <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+            <span className="text-gray-500 text-sm mb-2">今日銷售</span>
+            <span className="text-2xl font-bold text-indigo-600">${fakeStats.todaySales}</span>
+          </div>
+          <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+            <span className="text-gray-500 text-sm mb-2">今日小費</span>
+            <span className="text-2xl font-bold text-purple-600">${fakeStats.todayTips}</span>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        {/* 小費曲線圖 */}
+        <div className="bg-white rounded-2xl shadow p-6 mb-8">
+          <h2 className="text-lg font-bold text-gray-900 mb-4">每日小費趨勢</h2>
+          <Line data={fakeTipData} options={{
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } },
+          }} height={80} />
+        </div>
+        {/* 今日小費分配 */}
+        <div className="bg-white rounded-2xl shadow p-6 mb-8">
+          <h2 className="text-lg font-bold text-gray-900 mb-4">今日小費分配</h2>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase">姓名</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase">分得小費</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {todayTipDistribution.map((row, i) => (
+                  <tr key={i}>
+                    <td className="px-4 py-2 whitespace-nowrap text-gray-900">{row.name}</td>
+                    <td className="px-4 py-2 whitespace-nowrap text-indigo-700 font-bold">${row.tip}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
